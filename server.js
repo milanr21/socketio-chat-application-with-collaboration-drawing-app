@@ -1,9 +1,11 @@
-import { createServer } from "node:http";
-import next from "next";
-import { Server } from "socket.io";
+// server.js
 
-const dev = process.env.NODE_ENV !== "production";
-const hostname = "localhost";
+import { createServer } from 'node:http';
+import next from 'next';
+import { Server } from 'socket.io';
+
+const dev = process.env.NODE_ENV !== 'production';
+const hostname = 'localhost';
 const port = 3000;
 // when using middleware `hostname` and `port` must be provided below
 const app = next({ dev, hostname, port });
@@ -14,30 +16,28 @@ app.prepare().then(() => {
 
     const io = new Server(httpServer);
 
-    io.on("connection", (socket) => {
-        console.log("a user connected ✔✔✔✔✔✔");
+    io.on('connection', (socket) => {
+        console.log('a user connected ✔✔✔✔✔✔');
         // ...
 
-        socket.on("disconnect", () => {
-            console.log("user disconnected");
-        })
-
+        socket.on('disconnect', () => {
+            console.log('user disconnected');
+        });
 
         // Emit a 'message' event to the client
 
 
-        socket.emit("message", "Hello Milan ? How Are you ? What are you doing nowadays ? Why are you not getting up early in the morning nowadays ?")
+        socket.on('message', (message) => {
+            console.log("Message Received:", message);
+
+            io.emit("message", message);
+        })
 
 
     });
 
-
-
-
-
-
     httpServer
-        .once("error", (err) => {
+        .once('error', (err) => {
             console.error(err);
             process.exit(1);
         })
