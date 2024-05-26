@@ -47,3 +47,6 @@ TPC
 - It also retransmission of data. If the data is lost, the data will be retransmitted in the sever. The packets also arrive at the correct order.
 
 - Congenstion Control. When there high traffic, the TCP will maintain the latency to ensure that the packets are transfered in the right order and packets are not lossed.
+
+# Web Socket is the native browser. IT uses TCP.
+ 
